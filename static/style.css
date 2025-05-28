@@ -199,12 +199,11 @@ footer p {
     padding: 3rem 2rem;
     margin-top: 3rem;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
     text-align: center;
 }
 
 .contact:hover {
-    transform: scale(1.02);
     box-shadow: 0 12px 30px rgba(255, 118, 47, 0.3);
 }
 
