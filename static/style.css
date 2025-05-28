@@ -17,12 +17,16 @@ header {
     position: relative; /* <- přidat */
     overflow: visible;   /* <- pro jistotu */
     z-index: 0;
-    height: 50vh;
+    height: 60vh;
 }
 
 header .container {
     margin-top: 10px;
     padding: 20px 0;
+}
+
+.for-whom {
+    margin-top: -8rem;
 }
 
 header h1 {
