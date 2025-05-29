@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Gagalin';
+    src: url('fonts/Gagalin-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -26,12 +33,15 @@ header .container {
 }
 
 .for-whom {
-    margin-top: -8rem;
+    margin-top: -5rem;
 }
 
 header h1 {
-    font-size: 4rem;
+    font-size: 5.5rem;
+    font-family: 'Gagalin', sans-serif;
     margin-bottom: 10px;
+    letter-spacing: 2px;
+    font-weight: normal;
 }
 
 header .container p {
@@ -120,12 +130,18 @@ hr {
 
 section {
     padding: 10px 0;
+    text-align: justify;
+}
+
+section h2 {
+    text-align: left;
 }
 
 .container h2 {
     color: #ff762f !important;
-    font-weight: bold;
-    font-size: 2rem;
+    font-family: 'Gagalin', sans-serif;
+    font-weight: normal;
+    font-size: 3rem;
     margin-bottom: 15px;
     text-shadow: 1px 1px 2px rgba(0, 30, 60, 0.5);
 }
@@ -141,7 +157,10 @@ ul li {
     color: white;
     text-shadow: 1px 1px 2px rgba(0, 30, 60, 0.5);
     padding-left: 2rem;         /* posune celý odstavec doprava */
-    text-indent: -1.5rem;       /* první řádek vrátí zpět, raketa bude vlevo */
+}
+
+li {
+    padding: 0.25rem 0;
 }
 
 ul li::before {
@@ -326,6 +345,7 @@ footer p {
     gap: 2rem;
     margin: 2rem 0;
     flex-wrap: wrap;
+    text-align: justify;
 }
 
 .profile-img {
