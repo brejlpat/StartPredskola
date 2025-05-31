@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from email.message import EmailMessage
@@ -55,7 +55,20 @@ async def submit_form(name: str = Form(...), email: str = Form(...)):
             smtp.login("info@startujemepredskolaky.cz", os.getenv("mail_password"))
             smtp.send_message(msg)
 
-        return JSONResponse({"status": "ok", "message": "E-mail odeslán."})
+        # ⬇️ Vytvoření e-mailu
+        msg2 = EmailMessage()
+        msg2['Subject'] = 'Startujeme předškoláky - Jak na to?'
+        msg2['From'] = formataddr(("STARTUJEME PŘEDŠKOLÁKY", "info@startujemepredskolaky.cz"))
+        msg2['To'] = "info@startujemepredskolaky.cz"
+        msg2.set_content(f"Zaslán e-mail pro {name} na adresu {email}.")
 
+        with smtplib.SMTP("smtp.forpsi.com", 587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.login("info@startujemepredskolaky.cz", os.getenv("mail_password"))
+            smtp.send_message(msg2)
+
+        return RedirectResponse(url="/", status_code=303)
+    
     except Exception as e:
         return JSONResponse({"status": "error", "message": str(e)})
