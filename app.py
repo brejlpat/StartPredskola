@@ -8,8 +8,31 @@ from jinja2 import Template
 import smtplib
 import os
 from dotenv import load_dotenv
+import psycopg2
 
 load_dotenv()
+
+# Přihlašovací údaje
+DB_HOST = "db"         # název služby z docker-compose
+DB_PORT = 5432
+DB_NAME = "postgres"
+DB_USER = "postgres"
+DB_PASS = "postgres"
+
+try:
+    # Připojení k databázi
+    conn = psycopg2.connect(
+        host=DB_HOST,
+        port=5433,
+        dbname=DB_NAME,
+        user=DB_USER,
+        password=DB_PASS
+    )
+    cur = conn.cursor()
+    print("✅ Připojení k databázi bylo úspěšné.")
+
+except Exception as e:
+    print("❌ Chyba při připojování k databázi:", e)
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -18,6 +41,9 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def home_page(request: Request):
+    results = cur.execute("SELECT * FROM zajemci")
+    print(results)
+
     return templates.TemplateResponse("home.html", {"request": request})
 
 
@@ -54,6 +80,9 @@ async def submit_form(name: str = Form(...), email: str = Form(...)):
             smtp.starttls()
             smtp.login("info@startujemepredskolaky.cz", os.getenv("mail_password"))
             smtp.send_message(msg)
+
+        cur.execute("INSERT INTO zajemci (name, email) VALUES (%s, %s)", (name, email))
+        conn.commit()
 
         # ⬇️ Vytvoření e-mailu
         msg2 = EmailMessage()

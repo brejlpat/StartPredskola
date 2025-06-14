@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS zajemci (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    email TEXT,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
