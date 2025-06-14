@@ -23,7 +23,7 @@ try:
     # Připojení k databázi
     conn = psycopg2.connect(
         host=DB_HOST,
-        port=5433,
+        port=5432,
         dbname=DB_NAME,
         user=DB_USER,
         password=DB_PASS
